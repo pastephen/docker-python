@@ -8,10 +8,11 @@ pandas = "*"
 numpy = "*"
 dash = "*"
 pandas-datareader = "*"
+psycopg2 = "*"
 
 [dev-packages]
 awsume = "*"
 awscli = "*"
 
 [requires]
-python_version = "3.7"
+python_version = "3.8"

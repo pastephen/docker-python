@@ -1,4 +1,4 @@
-# https://github.com/machine-learning-helpers/docker-python-alpine/tree/master/Dockerfile
+# https://github.com/machine-learning-helpers/docker-python-alpine/tree/master/docker/python-3.8-alpine-3.11/Dockerfile
 
 # See also
 # * Python 3.8.1 Alpine 3.11
@@ -38,7 +38,7 @@ RUN apk update && \
             gcc g++ gfortran cython file libffi-dev libressl-dev \
             musl-dev lapack-dev openblas-dev libstdc++ freetype-dev \
             libnsl-dev ncurses-dev libressl-dev readline-dev \
-            sqlite-dev libxml2-dev libxslt-dev make \
+            sqlite-dev postgresql-dev libxml2-dev libxslt-dev make \
             py-scipy
 RUN pip3 install -U pip \
  && pip3 install -U psutil \
@@ -47,6 +47,7 @@ RUN pip3 install -U pip \
  && pip3 install -U numpy \
  && pip3 install -U pandas \
  && pip3 install -U pandas-datareader
+RUN pip3 install -U psycopg2
 RUN pip3 install -U matplotlib
 RUN pip3 install -U scikit-learn
 #RUN apk del .build-deps
