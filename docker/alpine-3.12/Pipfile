@@ -4,12 +4,20 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
-pandas = "*"
 numpy = "*"
 dash = "*"
+pandas = "*"
 pandas-datareader = "*"
+psycopg2 = "*"
 
 [dev-packages]
+awsume = "*"
+awscli = "*"
+setuptools = "*"
+wheel = "*"
+pytest = "*"
+twine = "*"
+tox = "*"
 
 [requires]
-python_version = "3.7"
+python_version = "3.8"

@@ -1,13 +1,13 @@
 #
-# Source: https://github.com/machine-learning-helpers/docker-python-alpine/tree/master/docker/alpine-3.11/Dockerfile
+# Source: https://github.com/machine-learning-helpers/docker-python-alpine/tree/master/docker/alpine-3.12/Dockerfile
 # On Docker Hub: https://hub.docker.com/repository/docker/artificialintelligence/python-alpine/general
 #
 # See also
-# * Alpine 3.11 (featuring Python 3.8.2)
+# * Alpine 3.12 (featuring Python 3.8.5)
 # * Image on Docker Hub/Cloud: https://hub.docker.com/_/alpine
-# * Dockerfile: https://github.com/alpinelinux/docker-alpine/blob/v3.11/x86_64/Dockerfile
+# * Dockerfile: https://github.com/alpinelinux/docker-alpine/blob/v3.12/x86_64/Dockerfile
 
-FROM alpine:3.11
+FROM alpine:3.12
 
 LABEL maintainer "Denis Arnaud <denis.arnaud_fedora@m4x.org>"
 
@@ -36,10 +36,10 @@ RUN apk update && \
             ncurses-dev readline-dev tk-dev tcl-dev lcms2-dev \
 	    jpeg-dev openjpeg-dev tiff-dev \
             sqlite-dev postgresql-dev libxml2-dev libxslt-dev make \
-	    python3-dev py3-pip py3-setuptools py3-pytest py3-tox \
+	    python3-dev py3-pip py3-setuptools py3-wheel py3-pytest py3-tox \
 	    py3-psutil py3-scipy
 
-RUN python3 -mpip install -U build wheel
+RUN python3 -mpip install -U build
 RUN python3 -mpip install -U dill joblib
 RUN python3 -mpip install -U twine
 RUN python3 -mpip install -U sphinx poetry
