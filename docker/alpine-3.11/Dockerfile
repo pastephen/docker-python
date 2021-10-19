@@ -1,11 +1,13 @@
 #
-# Source: https://github.com/machine-learning-helpers/docker-python-alpine/tree/master/docker/alpine-3.11/Dockerfile
-# On Docker Hub: https://hub.docker.com/repository/docker/artificialintelligence/python-alpine/general
+# Source: https://github.com/machine-learning-helpers/docker-python-light/tree/master/docker/alpine-3.11/Dockerfile
+# On Docker Hub: https://hub.docker.com/repository/docker/artificialintelligence/python-light/general
+# Usual Docker tag: py38-alp311 (artificialintelligence/python-light:py38-alp311)
 #
 # See also
 # * Alpine 3.11 (featuring Python 3.8.2)
 # * Image on Docker Hub/Cloud: https://hub.docker.com/_/alpine
 # * Dockerfile: https://github.com/alpinelinux/docker-alpine/blob/v3.11/x86_64/Dockerfile
+#
 
 FROM alpine:3.11
 
@@ -16,9 +18,6 @@ EXPOSE 5000
 
 #
 ENV HOME /root
-
-# Copy the Python dependency files
-COPY requirements.txt requirements-dev.txt $HOME/
 
 # Install the Python dependencies
 WORKDIR $HOME
@@ -35,7 +34,7 @@ RUN apk update && \
 	    openssl-dev libnsl-dev libressl-dev \
             ncurses-dev readline-dev tk-dev tcl-dev lcms2-dev \
 	    jpeg-dev openjpeg-dev tiff-dev \
-            sqlite-dev postgresql-dev libxml2-dev libxslt-dev make \
+            sqlite-dev postgresql-dev libxml2-dev libxslt-dev make jq \
 	    python3-dev py3-pip py3-setuptools py3-pytest py3-tox \
 	    py3-psutil py3-scipy
 
@@ -48,7 +47,9 @@ RUN python3 -mpip install -U simplejson
 RUN python3 -mpip install -U pyjq
 RUN python3 -mpip install -U protobuf
 RUN python3 -mpip install -U numpy
-RUN python3 -mpip install -U pandas
+# pandas 1.1.0 does not build on Alpine 3.11. A bug has been submitted:
+# https://github.com/pandas-dev/pandas/issues/35622
+RUN python3 -mpip install "pandas==1.0.5"
 RUN python3 -mpip install -U pandas-datareader
 RUN python3 -mpip install -U matplotlib
 RUN python3 -mpip install -U seaborn
@@ -56,11 +57,9 @@ RUN python3 -mpip install -U scikit-learn
 RUN python3 -mpip install -U psycopg2
 RUN python3 -mpip install -U opentraveldata OpenTrepWrapper neobase
 
-#RUN rm -rf /var/cache/apk/*
+RUN rm -rf /var/cache/apk/*
 #RUN apk del .build-deps
 
 #
 #ENTRYPOINT ["/bin/bash"]
-CMD /bin/bash
-
-
+CMD ["/bin/bash"]
